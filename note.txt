@@ -1,0 +1,2 @@
+celery -A Task -l worker info 
+celery -A Task -l beat info 
