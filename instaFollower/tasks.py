@@ -13,11 +13,10 @@ def update():
         USERNAME = account.login
         PASSWORD = account.password
 
-        # Instagram-a daxil olmaq ucun driver-i baslat
         # driver = webdriver.Chrome()
         # driver.maximize_window()
 
-        # Hide driver
+        #Start and Hide driver
         options = webdriver.ChromeOptions()
         options.add_argument('headless')
         options.add_argument('--disable-gpu')
@@ -41,7 +40,7 @@ def update():
         login_button.click()
 
         # Profile page
-        time.sleep(15)
+        time.sleep(10)
         profile_button = driver.find_element(By.XPATH,"//div[text()='Profile']")
         profile_button.click()
 

@@ -17,6 +17,7 @@ def follow_info(username,password):
 
     # driver = webdriver.Chrome()
     
+    # Start driver
     options = webdriver.ChromeOptions()
     options.add_argument('headless')
     options.add_argument('--disable-gpu')
@@ -27,6 +28,7 @@ def follow_info(username,password):
     # driver.maximize_window()  
     driver.get('https://www.instagram.com/accounts/login/')
 
+    # Enter username and password
     time.sleep(5)
     username_input = driver.find_element(By.NAME,'username')
     username_input.send_keys(USERNAME)
@@ -34,28 +36,30 @@ def follow_info(username,password):
     password_input.send_keys(PASSWORD)
 
 
+    # Click login button
     time.sleep(2)
     login_button = driver.find_element(By.XPATH,"//button[@type='submit']")
     login_button.click()
-    print("-------------------------------------------------------------------Button Clicklendi")
 
+    # Get Profile page
     time.sleep(10)
     profile_button = driver.find_element(By.XPATH,"//div[text()='Profile']")
     profile_button.click()
-    print("-------------------------------------------------------------------Profil sehifesine kecildi")
 
     # _ac8f
 
+    # Get follow data
     time.sleep(10)
     followers_s = driver.find_elements(By.XPATH,"//span[@class='_ac2a']")[1].text
     following_s = driver.find_elements(By.XPATH,"//span[@class='_ac2a']")[2].text
 
-
+    # Get username
     user_name = driver.find_element(By.TAG_NAME,"h2").text
 
+    # Quit browser
     driver.quit()
 
-
+    # Save data
     data = Account(login=USERNAME,password=PASSWORD,username=user_name,followers=followers_s,following=following_s)
     data.save()
 
@@ -71,6 +75,7 @@ def sign_up(request):
         password = request.POST["password"]
         repassword = request.POST["repassword"]
 
+        # Validator
         if password == repassword:
             if User.objects.filter(username=username).exists():
                 return render(
