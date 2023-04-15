@@ -27,10 +27,8 @@ def follow_info(username,password):
     options.add_argument('--disable-gpu')
     options.add_argument('--window-size=1920,1080')
     
-    try:
-        driver = webdriver.Chrome(options=options)
-    except:
-        driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()),options=options)
+ 
+    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()),options=options)
 
 
     
