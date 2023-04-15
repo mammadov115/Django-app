@@ -19,7 +19,6 @@ def follow_info(username,password):
     USERNAME = username
     PASSWORD = password
 
-    # driver = webdriver.Chrome()
     
     # Start driver
     
@@ -28,12 +27,11 @@ def follow_info(username,password):
     options.add_argument('--disable-gpu')
     options.add_argument('--window-size=1920,1080')
     
-    # try:
-    #     driver = webdriver.Chrome(options=options)
-    # except:
-    #     driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()),options=options)
+    try:
+        driver = webdriver.Chrome(options=options)
+    except:
+        driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()),options=options)
 
-    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()),options=options)
 
     
     # driver.maximize_window()  
@@ -63,6 +61,7 @@ def follow_info(username,password):
     # Get follow data
     time.sleep(10)
     followers_s = driver.find_elements(By.CLASS_NAME,'_ac2a')[1].text
+
     following_s = driver.find_elements(By.CLASS_NAME,'_ac2a')[2].text
 
     # Get username
