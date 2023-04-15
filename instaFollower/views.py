@@ -10,6 +10,10 @@ from .models import Account
 def follow_info(username,password):
     from selenium import webdriver
     from selenium.webdriver.common.by import By
+    from webdriver_manager.chrome import ChromeDriverManager
+    from selenium.webdriver.chrome.service import Service as ChromeService
+    
+
     import time
 
     USERNAME = username
@@ -18,22 +22,30 @@ def follow_info(username,password):
     # driver = webdriver.Chrome()
     
     # Start driver
+    
     options = webdriver.ChromeOptions()
     options.add_argument('headless')
     options.add_argument('--disable-gpu')
     options.add_argument('--window-size=1920,1080')
+    
+    # try:
+    #     driver = webdriver.Chrome(options=options)
+    # except:
+    #     driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()),options=options)
 
-    driver = webdriver.Chrome(options=options)
+    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()),options=options)
+
     
     # driver.maximize_window()  
     driver.get('https://www.instagram.com/accounts/login/')
 
     # Enter username and password
-    time.sleep(5)
+    time.sleep(10)
     username_input = driver.find_element(By.NAME,'username')
     username_input.send_keys(USERNAME)
     password_input = driver.find_element(By.NAME,'password')
     password_input.send_keys(PASSWORD)
+    print('username entered')
 
 
     # Click login button
@@ -50,8 +62,8 @@ def follow_info(username,password):
 
     # Get follow data
     time.sleep(10)
-    followers_s = driver.find_elements(By.XPATH,"//span[@class='_ac2a']")[1].text
-    following_s = driver.find_elements(By.XPATH,"//span[@class='_ac2a']")[2].text
+    followers_s = driver.find_elements(By.CLASS_NAME,'_ac2a')[1].text
+    following_s = driver.find_elements(By.CLASS_NAME,'_ac2a')[2].text
 
     # Get username
     user_name = driver.find_element(By.TAG_NAME,"h2").text
