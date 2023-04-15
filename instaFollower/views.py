@@ -28,7 +28,7 @@ def follow_info(username,password):
     options.add_argument('--window-size=1920,1080')
     
  
-    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()),options=options)
+    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager(path="/tmp").install()),options=options)
 
 
     
